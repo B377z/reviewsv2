@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  reviews-database:
+    image: mongo
+    networks:
+      - app-network
+    ports:
+      - '27017:27017'
+
+  reviews-backend:
+    build: backend/
+    environment:
+      - PORT=3001
+      - DATABASE_URL=mongodb://host.docker.internal:27017/blog
+    networks:
+      - app-network
+    ports:
+      - '3001:3001'
+    depends_on:
+      - reviews-database
+
+  reviews-frontend:
+    build:
+      context: .
+      args:
+        VITE_BACKEND_URL: http://localhost:3001/api/v1
+    environment:
+      - VITE_BACKEND_URL=http://localhost:3001/api/v1
+    networks:
+      - app-network
+    ports:
+      - '3000:80'
+    depends_on:
+      - reviews-backend
+
+networks:
+  app-network:
+    driver: bridge

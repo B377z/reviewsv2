@@ -1,16 +1,14 @@
 // backend/src/db/init.js
 import mongoose from 'mongoose'
 
-export async function initDatabase() {
-  const DATABASE_URL = 'mongodb://localhost:27017/blog'
-
+export async function initDatabase(databaseUrl = process.env.DATABASE_URL) {
   try {
     // Establish the connection to MongoDB with unified topology
-    await mongoose.connect(DATABASE_URL)
+    await mongoose.connect(databaseUrl)
 
     // Log successful connection
     mongoose.connection.once('open', () => {
-      console.log('Connected to the database:', DATABASE_URL)
+      console.log('Connected to the database:', databaseUrl)
     })
 
     // Handle connection errors after initial connection is established

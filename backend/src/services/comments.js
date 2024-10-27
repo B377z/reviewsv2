@@ -56,7 +56,7 @@ export async function listAllComments(options = {}) {
  */
 export async function listCommentsByPost(
   postId,
-  { sortBy, sortOrder, limit, page },
+  { sortBy = 'createdAt', sortOrder = 'asc', limit = 10, page = 1 } = {},
 ) {
   const skip = (page - 1) * limit
   return await Comment.find({ postId })

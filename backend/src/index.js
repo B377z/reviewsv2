@@ -1,15 +1,16 @@
+import dotenv from 'dotenv'
+dotenv.config()
+console.log(process.env.DATABASE_URL)
+
 import { app } from './app.js'
 import { initDatabase } from './db/init.js'
-import dotenv from 'dotenv'
 
 // Load environment variables
-dotenv.config()
 
 const PORT = process.env.PORT || 3000 // Fallback to 3000 if PORT is not defined
-const DATABASE_URL = process.env.DATABASE_URL
 
 try {
-  await initDatabase(DATABASE_URL)
+  await initDatabase(process.env.DATABASE_URL)
   app.listen(PORT, () => {
     console.log(`Server is listening on http://localhost:${PORT}/api/v1`)
   })

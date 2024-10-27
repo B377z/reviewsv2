@@ -23,9 +23,15 @@ export function commentsRoutes(app) {
   // Route: GET /api/v1/posts/:postId/comments - Get all comments for a specific post
   app.get('/api/v1/posts/:postId/comments', async (req, res) => {
     const { postId } = req.params
+    const { sortBy, sortOrder, limit, page } = req.query // Capture options from query params
 
     try {
-      const comments = await listCommentsByPost(postId)
+      const comments = await listCommentsByPost(postId, {
+        sortBy,
+        sortOrder,
+        limit,
+        page,
+      })
       res.status(200).json(comments)
     } catch (error) {
       console.error('Error retrieving comments:', error)

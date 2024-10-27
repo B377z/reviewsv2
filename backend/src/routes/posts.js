@@ -65,6 +65,7 @@ export function postsRoutes(app) {
       const newPost = await createPost(req.body)
       res.status(201).json(newPost)
     } catch (error) {
+      console.error('Error creating post:', error) // Log backend errors
       res.status(400).json({ message: 'Error creating the post', error })
     }
   })
