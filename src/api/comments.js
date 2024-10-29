@@ -1,4 +1,5 @@
-const VITE_BACKEND_URL = 'http://localhost:3001/api/v1'
+const VITE_BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001/api/v1'
 
 export async function fetchCommentsByPost(postId) {
   const response = await fetch(`${VITE_BACKEND_URL}?postId=${postId}`)
